@@ -1,5 +1,9 @@
 # react-native-image-viewing
 
+## What in fork?
+
+- Update currentImageIndex on images array changes issue #203
+
 > React Native modal component for viewing images as a sliding gallery.
 
 [![npm version](https://badge.fury.io/js/react-native-image-viewing.svg)](https://badge.fury.io/js/react-native-image-viewing)

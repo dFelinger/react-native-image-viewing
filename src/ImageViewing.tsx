@@ -142,7 +142,7 @@ function ImageViewing({
               doubleTapToZoomEnabled={doubleTapToZoomEnabled}
             />
           )}
-          onMomentumScrollEnd={onScroll}
+          onScroll={onScroll}
           //@ts-ignore
           keyExtractor={(imageSrc, index) =>
             keyExtractor
