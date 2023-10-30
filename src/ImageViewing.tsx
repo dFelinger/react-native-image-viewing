@@ -40,6 +40,7 @@ type Props = {
   swipeToCloseEnabled?: boolean;
   doubleTapToZoomEnabled?: boolean;
   delayLongPress?: number;
+  ImageComponent?: ComponentType<any>;
   HeaderComponent?: ComponentType<{ imageIndex: number }>;
   FooterComponent?: ComponentType<{ imageIndex: number }>;
 };
@@ -64,6 +65,7 @@ function ImageViewing({
   swipeToCloseEnabled,
   doubleTapToZoomEnabled,
   delayLongPress = DEFAULT_DELAY_LONG_PRESS,
+  ImageComponent,
   HeaderComponent,
   FooterComponent,
 }: Props) {
@@ -140,6 +142,7 @@ function ImageViewing({
               delayLongPress={delayLongPress}
               swipeToCloseEnabled={swipeToCloseEnabled}
               doubleTapToZoomEnabled={doubleTapToZoomEnabled}
+              ImageComponent={ImageComponent}
             />
           )}
           onScroll={onScroll}

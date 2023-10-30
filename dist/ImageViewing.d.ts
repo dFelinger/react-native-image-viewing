@@ -22,6 +22,7 @@ declare type Props = {
     swipeToCloseEnabled?: boolean;
     doubleTapToZoomEnabled?: boolean;
     delayLongPress?: number;
+    ImageComponent?: ComponentType<any>;
     HeaderComponent?: ComponentType<{
         imageIndex: number;
     }>;

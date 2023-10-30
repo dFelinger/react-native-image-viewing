@@ -3,6 +3,7 @@
 ## What in fork?
 
 - Update currentImageIndex on images array changes issue #203
+- Custom ImageComponent issue #35 to use with react-native-fast-image
 
 > React Native modal component for viewing images as a sliding gallery.
 
@@ -36,7 +37,10 @@ npm install --save react-native-image-viewing
 ## Usage
 
 ```jsx
+import { Animated } from 'react-native';
+
 import ImageView from "react-native-image-viewing";
+import FastImage from 'react-native-fast-image';
 
 const images = [
   {
@@ -52,11 +56,14 @@ const images = [
 
 const [visible, setIsVisible] = useState(false);
 
+const FastImageAnimated = Animated.createAnimatedComponent(FastImage);
+
 <ImageView
   images={images}
   imageIndex={0}
   visible={visible}
   onRequestClose={() => setIsVisible(false)}
+  ImageComponent={FastImageAnimated}
 />
 ```
 
@@ -81,6 +88,7 @@ const [visible, setIsVisible] = useState(false);
 | `doubleTapToZoomEnabled` | Zoom image by double tap on it: default `true`                                                      | boolean                                                     | false    |
 | `HeaderComponent`        | Header component, gets current `imageIndex` as a prop                                               | component, function                                         | false    |
 | `FooterComponent`        | Footer component, gets current `imageIndex` as a prop                                               | component, function                                         | false    |
+| `ImageComponent`         | Image component                                                                                     | component, function                                         | false    |
 
 - type ImageSource = ImageURISource | ImageRequireSource
 

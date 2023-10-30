@@ -6,7 +6,7 @@
  *
  */
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, ComponentType } from "react";
 
 import {
   Animated,
@@ -41,6 +41,7 @@ type Props = {
   delayLongPress: number;
   swipeToCloseEnabled?: boolean;
   doubleTapToZoomEnabled?: boolean;
+  ImageComponent?: ComponentType<any>;
 };
 
 const ImageItem = ({
@@ -51,6 +52,7 @@ const ImageItem = ({
   delayLongPress,
   swipeToCloseEnabled = true,
   doubleTapToZoomEnabled = true,
+  ImageComponent,
 }: Props) => {
   const scrollViewRef = useRef<ScrollView>(null);
   const [loaded, setLoaded] = useState(false);
@@ -136,11 +138,24 @@ const ImageItem = ({
           onLongPress={onLongPressHandler}
           delayLongPress={delayLongPress}
         >
-          <Animated.Image
-            source={imageSrc}
-            style={imageStylesWithOpacity}
-            onLoad={() => setLoaded(true)}
-          />
+          {
+            ImageComponent ? (
+              React.createElement(
+                ImageComponent,
+                {
+                  source: imageSrc,
+                  style: imageStylesWithOpacity,
+                  onLoad: () => setLoaded(true),
+                }
+              )
+            ) : (
+              <Animated.Image
+                source={imageSrc}
+                style={imageStylesWithOpacity}
+                onLoad={() => setLoaded(true)}
+              />
+            )
+          }
         </TouchableWithoutFeedback>
       </ScrollView>
     </View>

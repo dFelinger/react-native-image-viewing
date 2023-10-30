@@ -6,7 +6,7 @@
  *
  */
 
-import React, { useCallback, useRef, useState } from "react";
+import React, { useCallback, useRef, useState, ComponentType } from "react";
 
 import {
   Animated,
@@ -39,6 +39,7 @@ type Props = {
   delayLongPress: number;
   swipeToCloseEnabled?: boolean;
   doubleTapToZoomEnabled?: boolean;
+  ImageComponent?: ComponentType<any>;
 };
 
 const ImageItem = ({
@@ -49,6 +50,7 @@ const ImageItem = ({
   delayLongPress,
   swipeToCloseEnabled = true,
   doubleTapToZoomEnabled = true,
+  ImageComponent,
 }: Props) => {
   const imageContainer = useRef<ScrollView & NativeMethodsMixin>(null);
   const imageDimensions = useImageDimensions(imageSrc);
@@ -131,12 +133,26 @@ const ImageItem = ({
         onScrollEndDrag,
       })}
     >
-      <Animated.Image
-        {...panHandlers}
-        source={imageSrc}
-        style={imageStylesWithOpacity}
-        onLoad={onLoaded}
-      />
+      {
+        ImageComponent ? (
+          React.createElement(
+            ImageComponent,
+            {
+              ...panHandlers,
+              source: imageSrc,
+              style: imageStylesWithOpacity,
+              onLoad: onLoaded,
+            }
+          )
+        ) : (
+          <Animated.Image
+            {...panHandlers}
+            source={imageSrc}
+            style={imageStylesWithOpacity}
+            onLoad={onLoaded}
+          />
+        )
+      }
       {(!isLoaded || !imageDimensions) && <ImageLoading />}
     </ScrollView>
   );

@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  *
  */
-import React from "react";
+import React, { ComponentType } from "react";
 import { ImageSource } from "../../@types";
 declare type Props = {
     imageSrc: ImageSource;
@@ -15,6 +15,7 @@ declare type Props = {
     delayLongPress: number;
     swipeToCloseEnabled?: boolean;
     doubleTapToZoomEnabled?: boolean;
+    ImageComponent?: ComponentType<any>;
 };
-declare const _default: React.MemoExoticComponent<({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPress, swipeToCloseEnabled, doubleTapToZoomEnabled, }: Props) => JSX.Element>;
+declare const _default: React.MemoExoticComponent<({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPress, swipeToCloseEnabled, doubleTapToZoomEnabled, ImageComponent, }: Props) => JSX.Element>;
 export default _default;

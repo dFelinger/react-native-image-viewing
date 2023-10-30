@@ -16,7 +16,7 @@ const SWIPE_CLOSE_VELOCITY = 1.75;
 const SCREEN = Dimensions.get("window");
 const SCREEN_WIDTH = SCREEN.width;
 const SCREEN_HEIGHT = SCREEN.height;
-const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPress, swipeToCloseEnabled = true, doubleTapToZoomEnabled = true, }) => {
+const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPress, swipeToCloseEnabled = true, doubleTapToZoomEnabled = true, ImageComponent, }) => {
     const imageContainer = useRef(null);
     const imageDimensions = useImageDimensions(imageSrc);
     const [translate, scale] = getImageTransform(imageDimensions, SCREEN);
@@ -68,7 +68,12 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
         onScroll,
         onScrollEndDrag,
     })}>
-      <Animated.Image {...panHandlers} source={imageSrc} style={imageStylesWithOpacity} onLoad={onLoaded}/>
+      {ImageComponent ? (React.createElement(ImageComponent, {
+        ...panHandlers,
+        source: imageSrc,
+        style: imageStylesWithOpacity,
+        onLoad: onLoaded,
+    })) : (<Animated.Image {...panHandlers} source={imageSrc} style={imageStylesWithOpacity} onLoad={onLoaded}/>)}
       {(!isLoaded || !imageDimensions) && <ImageLoading />}
     </ScrollView>);
 };
