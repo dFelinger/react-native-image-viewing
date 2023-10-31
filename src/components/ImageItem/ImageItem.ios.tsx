@@ -14,6 +14,7 @@ import {
   ScrollView,
   StyleSheet,
   View,
+  Image,
   NativeScrollEvent,
   NativeSyntheticEvent,
   TouchableWithoutFeedback,
@@ -138,24 +139,32 @@ const ImageItem = ({
           onLongPress={onLongPressHandler}
           delayLongPress={delayLongPress}
         >
-          {
-            ImageComponent ? (
-              React.createElement(
-                ImageComponent,
-                {
-                  source: imageSrc,
-                  style: imageStylesWithOpacity,
-                  onLoad: () => setLoaded(true),
-                }
+          <Animated.View style={imageStylesWithOpacity}>
+            {
+              ImageComponent ? (
+                React.createElement(
+                  ImageComponent,
+                  {
+                    source: imageSrc,
+                    style: {
+                      width: imageStylesWithOpacity.width,
+                      height: imageStylesWithOpacity.height
+                    },
+                    onLoad: () => setLoaded(true),
+                  }
+                )
+              ) : (
+                <Image
+                  source={imageSrc}
+                  style={{
+                    width: imageStylesWithOpacity.width,
+                    height: imageStylesWithOpacity.height
+                  }}
+                  onLoad={() => setLoaded(true)}
+                />
               )
-            ) : (
-              <Animated.Image
-                source={imageSrc}
-                style={imageStylesWithOpacity}
-                onLoad={() => setLoaded(true)}
-              />
-            )
-          }
+            }
+          </Animated.View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </View>

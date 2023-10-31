@@ -6,7 +6,7 @@
  *
  */
 import React, { useCallback, useRef, useState } from "react";
-import { Animated, Dimensions, ScrollView, StyleSheet, View, TouchableWithoutFeedback, } from "react-native";
+import { Animated, Dimensions, ScrollView, StyleSheet, View, Image, TouchableWithoutFeedback, } from "react-native";
 import useDoubleTapToZoom from "../../hooks/useDoubleTapToZoom";
 import useImageDimensions from "../../hooks/useImageDimensions";
 import { getImageStyles, getImageTransform } from "../../utils";
@@ -62,11 +62,19 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
     })}>
         {(!loaded || !imageDimensions) && <ImageLoading />}
         <TouchableWithoutFeedback onPress={doubleTapToZoomEnabled ? handleDoubleTap : undefined} onLongPress={onLongPressHandler} delayLongPress={delayLongPress}>
-          {ImageComponent ? (React.createElement(ImageComponent, {
+          <Animated.View style={imageStylesWithOpacity}>
+            {ImageComponent ? (React.createElement(ImageComponent, {
         source: imageSrc,
-        style: imageStylesWithOpacity,
+        style: {
+            width: imageStylesWithOpacity.width,
+            height: imageStylesWithOpacity.height
+        },
         onLoad: () => setLoaded(true),
-    })) : (<Animated.Image source={imageSrc} style={imageStylesWithOpacity} onLoad={() => setLoaded(true)}/>)}
+    })) : (<Image source={imageSrc} style={{
+        width: imageStylesWithOpacity.width,
+        height: imageStylesWithOpacity.height
+    }} onLoad={() => setLoaded(true)}/>)}
+          </Animated.View>
         </TouchableWithoutFeedback>
       </ScrollView>
     </View>);

@@ -11,6 +11,7 @@ import React, { useCallback, useRef, useState, ComponentType } from "react";
 import {
   Animated,
   ScrollView,
+  Image,
   Dimensions,
   StyleSheet,
   NativeScrollEvent,
@@ -133,26 +134,32 @@ const ImageItem = ({
         onScrollEndDrag,
       })}
     >
-      {
-        ImageComponent ? (
-          React.createElement(
-            ImageComponent,
-            {
-              ...panHandlers,
-              source: imageSrc,
-              style: imageStylesWithOpacity,
-              onLoad: onLoaded,
-            }
+      <Animated.View {...panHandlers} style={imageStylesWithOpacity}>
+        {
+          ImageComponent ? (
+            React.createElement(
+              ImageComponent,
+              {
+                source: imageSrc,
+                style: {
+                  width: imageStylesWithOpacity.width,
+                  height: imageStylesWithOpacity.height
+                },
+                onLoad: onLoaded,
+              }
+            )
+          ) : (
+            <Image
+              source={imageSrc}
+              style={{
+                width: imageStylesWithOpacity.width,
+                height: imageStylesWithOpacity.height
+              }}
+              onLoad={onLoaded}
+            />
           )
-        ) : (
-          <Animated.Image
-            {...panHandlers}
-            source={imageSrc}
-            style={imageStylesWithOpacity}
-            onLoad={onLoaded}
-          />
-        )
-      }
+        }
+      </Animated.View>
       {(!isLoaded || !imageDimensions) && <ImageLoading />}
     </ScrollView>
   );

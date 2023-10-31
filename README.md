@@ -37,8 +37,6 @@ npm install --save react-native-image-viewing
 ## Usage
 
 ```jsx
-import { Animated } from 'react-native';
-
 import ImageView from "react-native-image-viewing";
 import FastImage from 'react-native-fast-image';
 
@@ -56,14 +54,12 @@ const images = [
 
 const [visible, setIsVisible] = useState(false);
 
-const FastImageAnimated = Animated.createAnimatedComponent(FastImage);
-
 <ImageView
   images={images}
   imageIndex={0}
   visible={visible}
   onRequestClose={() => setIsVisible(false)}
-  ImageComponent={FastImageAnimated}
+  ImageComponent={FastImage}
 />
 ```
 

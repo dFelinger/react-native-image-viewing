@@ -6,7 +6,7 @@
  *
  */
 import React, { useCallback, useRef, useState } from "react";
-import { Animated, ScrollView, Dimensions, StyleSheet, } from "react-native";
+import { Animated, ScrollView, Image, Dimensions, StyleSheet, } from "react-native";
 import useImageDimensions from "../../hooks/useImageDimensions";
 import usePanResponder from "../../hooks/usePanResponder";
 import { getImageStyles, getImageTransform } from "../../utils";
@@ -68,12 +68,19 @@ const ImageItem = ({ imageSrc, onZoom, onRequestClose, onLongPress, delayLongPre
         onScroll,
         onScrollEndDrag,
     })}>
-      {ImageComponent ? (React.createElement(ImageComponent, {
-        ...panHandlers,
+      <Animated.View {...panHandlers} style={imageStylesWithOpacity}>
+        {ImageComponent ? (React.createElement(ImageComponent, {
         source: imageSrc,
-        style: imageStylesWithOpacity,
+        style: {
+            width: imageStylesWithOpacity.width,
+            height: imageStylesWithOpacity.height
+        },
         onLoad: onLoaded,
-    })) : (<Animated.Image {...panHandlers} source={imageSrc} style={imageStylesWithOpacity} onLoad={onLoaded}/>)}
+    })) : (<Image source={imageSrc} style={{
+        width: imageStylesWithOpacity.width,
+        height: imageStylesWithOpacity.height
+    }} onLoad={onLoaded}/>)}
+      </Animated.View>
       {(!isLoaded || !imageDimensions) && <ImageLoading />}
     </ScrollView>);
 };
